@@ -38,6 +38,8 @@ class ListaDuplamEncad:
     @cursor.setter
     def cursor(self, cursor):
         self.__cursor = cursor
+        
+    
     
     
     
