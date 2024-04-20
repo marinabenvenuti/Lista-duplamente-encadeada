@@ -3,9 +3,9 @@ class LinkedList:
         self.__start = None
         self.__end = None
         self.__counter = 0
-        self.__cursor = None    #Every list should have a reference to its cursor (?)
+        self.__cursor = None
         self.__size = size
-        
+
     def list_all(self):
         auxiliar = self.__start
         if self.is_empty():
@@ -31,62 +31,93 @@ class LinkedList:
     def has(self, value):   #Searches for a element with given value, returns a boolean
         pass
 
-    def which_index(self, value):    #Returns position of given value
+    def position_of(self, value):    #Returns position of given value
         pass
     
-    def set_before_cursor(self, value): 
-        pass
-    
-    def set_after_cursor(self, value): 
-        pass
-    
-    def set_first(self, value):
-        if self.__counter>0:
-            value.set_next(self.__start)
-            self.__start = value
+    def set_first(self, element):
+        if self.is_full():
+            raise Exception
+        elif self.__counter>0:
+            element.set_next(self.__start)
+            self.__start.set_previous(element)
+            self.__start = element
         else:
-            self.__start = value
+            self.__start = element
+            self.__cursor = self.__start
         self.__counter += 1
     
-    def set_last(self, value):
+    def set_last(self, element):
         if self.__counter>0:
-            value.set_previous(self.__end)
-            self.__end = value
+            element.set_previous(self.__end)
+            self.__end = element
         else:
-            self.__start = value
-            self.__end = value
+            self.__start = element
+            self.__end = element
         self.__counter += 1
 
-    def add_in_position(self, position):
-        pass
+    def add_next(self, element):
+        if self.is_empty():
+            self.__start = element
+            self.__cursor = self.__start
+        elif self.is_full():
+            raise Exception
+        else:
+            element.set_next(self.__cursor.get_next())
+            self.__cursor.set_next(element)
+            element.set_previous(self.__cursor)
+        self.__counter += 1
     
-    def delete_actual_cursor(self):
-        pass
+    def add_previous(self, element): 
+        if self.is_full():
+            raise Exception
+        elif self.is_empty():
+            raise Exception
+        else:
+            element.set_next(self.__cursor)
+            element.set_previous(self.__cursor.get_previous())
+            self.__cursor_set_previous(element)
+            self.__counter += 1
+
+    def add_in_position(self, position, element):
+        if self.is_full():
+            raise Exception
     
+    def delete_current(self):
+        if self.is_empty():
+            raise Exception
+        else:
+            pass
     def delete_first(self):
-        pass
+        if self.is_empty():
+            raise Exception
     
     def delete_last(self):
-        pass
+        if self.is_empty():
+            raise Exception
     
     def delete_in_position(self, position):
-        pass
+        if self.is_empty():
+            raise Exception
     
-    def delete_value(self, value):
-        pass
+    def delete_by_value(self, value):
+        if self.is_empty():
+            raise Exception
         
-    #cursor:
-    def go_to_start(self):
-        self.set_pointer(self.__list.start())
+    #cursor functions:
+    def go_to_first(self):
+        if self.is_empty():
+            raise Exception
+        self.__cursor = self.__start()
 
-    def go_to_end(self):
-        self.set_pointer(self.__list.end())
+    def go_to_last(self):
+        if self.is_empty():
+            raise Exception
+        self.__cursor = self.__end()
 
     def forward(self, times):   #How many times the cursor should go forward
         for i in range(times):
             aux = self.__cursor
             self.__cursor = self.__cursor.get_next()
-            
 
     def backward(self, times):  #How many times the cursor should go backwards
         for i in range(times):

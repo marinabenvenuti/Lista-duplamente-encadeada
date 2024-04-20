@@ -4,7 +4,6 @@ class Element:
         self.__next = None
         self.__previous = None
 
-
     def get_value(self):
         return self.__value    
 
