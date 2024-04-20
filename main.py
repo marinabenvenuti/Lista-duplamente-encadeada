@@ -7,9 +7,9 @@ if __name__ == '__main__':
     e3 = Element(8)
     e4 = Element(78)
     e5 = Element(13)
+
     list = LinkedList(2)
+    
     list.set_first(e1)
-    list.set_first(e2)
-    list.set_last(e3)
+    list.add_next(e2)
     print(list.list_all())
-    print(list.is_full())

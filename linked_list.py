@@ -7,14 +7,14 @@ class LinkedList:
         self.__size = size
 
     def list_all(self):
-        auxiliar = self.__start
+        aux = self.__start
         if self.is_empty():
-            raise Exception
+            raise Exception("This list is empty!")
         else: 
-            for i in range(self.__counter - 1):
-                print(self.__start.value())
+            for i in range(2):
+                print(self.__start.get_value())
                 self.__start = self.__start.get_next() 
-            self.__start = auxiliar
+            self.__start = aux
 
     def is_empty(self):
         if self.__start is None:
@@ -36,17 +36,19 @@ class LinkedList:
     
     def set_first(self, element):
         if self.is_full():
-            raise Exception
+            raise Exception("The list is already full!")
         elif self.__counter>0:
             element.set_next(self.__start)
             self.__start.set_previous(element)
             self.__start = element
         else:
             self.__start = element
-            self.__cursor = self.__start
+        self.__cursor = self.__start
         self.__counter += 1
     
     def set_last(self, element):
+        if self.is_full():
+            raise Exception
         if self.__counter>0:
             element.set_previous(self.__end)
             self.__end = element
@@ -60,7 +62,7 @@ class LinkedList:
             self.__start = element
             self.__cursor = self.__start
         elif self.is_full():
-            raise Exception
+            raise Exception("The list is already full!")
         else:
             element.set_next(self.__cursor.get_next())
             self.__cursor.set_next(element)
