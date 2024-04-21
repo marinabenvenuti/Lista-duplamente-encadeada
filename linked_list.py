@@ -111,16 +111,18 @@ class LinkedList:
         else:
             element.set_next(self.__cursor)
             element.set_previous(self.__cursor.get_previous())
+            self.__cursor.get_previous().set_next(element)
             self.__cursor.set_previous(element)
         self.__counter += 1
 
     def add_in_position(self, position, element):   #Cursor mobility follows "add_next" logic
         if self.is_full():
             raise Exception("The list is alreay full!")
-        elif self.is_empty():
+        elif self.is_empty() or position == 0:
             self.set_first(element)
         else:
-            self.add_next(self.go_to_position(position-1))
+            self.go_to_position(position-1)
+            self.add_next(element)
         self.__counter += 1
 
     #Deletion Functions
@@ -144,6 +146,9 @@ class LinkedList:
         if self.is_empty():
             raise Exception("This list is already empty!")
         else:
+            if self.__cursor == self.__end:
+                self.__cursor = self.__end.get_previous()
+            self.__end.get_previous().set_next(None)
             self.__end = self.__end.get_previous()
         self.__counter -= 1
     
