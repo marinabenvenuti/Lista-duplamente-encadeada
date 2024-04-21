@@ -1,6 +1,7 @@
 class Element:
     def __init__(self, value):
         self.__value = value
+        self.__position = None
         self.__next = None
         self.__previous = None
 
